@@ -1,14 +1,28 @@
 #%%
-%pip install --upgrade --quiet  langchain-openai tiktoken chromadb langchain
-
-#%%
 import dotenv
 import os
+from langchain.chains.summarize import load_summarize_chain
+from langchain_community.document_loaders import WebBaseLoader
+from langchain_openai import AzureChatOpenAI
 
+"""
+The file /configs/.env should contain:
+AZURE_OPENAI_API_KEY = ""
+AZURE_OPENAI_ENDPOINT = ""
+"""
+dotenv.load_dotenv(os.path.join("configs", ".env"))
 
-openai_api_key_se = os.getenv("OPENAI_API_KEY_SE")
-openai_api_base_se = os.getenv("API_BASE_4_SE")
+loader = WebBaseLoader("https://lilianweng.github.io/posts/2023-06-23-agent/")
+docs = loader.load()
 
-os.environ["AZURE_OPENAI_API_KEY"] = openai_api_key_se
-os.environ["AZURE_OPENAI_ENDPOINT"] = openai_api_base_se
+llm = AzureChatOpenAI(
+    temperature=0,
+    azure_deployment="gpt-35-turbo-1106",
+    openai_api_version="2024-02-15-preview"
+)
+
+chain = load_summarize_chain(llm, chain_type="stuff")
+
+results = chain.run(docs)
+print(results)
 # %%

@@ -171,4 +171,5 @@ cython_debug/
 # Local files
 configs/
 data_dir/
+data/
 .DS_Store
