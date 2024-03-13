@@ -1,4 +1,3 @@
-#from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.core.readers.file.base import SimpleDirectoryReader
 from llama_index.core.indices.vector_store import VectorStoreIndex
 from llama_index.embeddings.azure_openai.base import AzureOpenAIEmbedding
@@ -8,12 +7,11 @@ import dotenv
 import os
 
 
-#copying generic_utils.py from llama_index/core/base/llms into llama_index/core/llms
-
 #%%
 # !mkdir -p 'data/paul_graham/'
 # !wget 'https://raw.githubusercontent.com/run-llama/llama_index/main/docs/examples/data/paul_graham/paul_graham_essay.txt' -O 'data/paul_graham/paul_graham_essay.txt'
 
+#%%
 dotenv.load_dotenv(os.path.join("configs", ".env"))
 
 """
@@ -21,8 +19,6 @@ The file /configs/.env should contain:
 AZURE_OPENAI_API_KEY = ""
 AZURE_OPENAI_ENDPOINT = ""
 """
-
-#%%
 
 llm = AzureChatOpenAI(
     temperature=0,

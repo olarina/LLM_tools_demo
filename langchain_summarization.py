@@ -21,6 +21,7 @@ llm = AzureChatOpenAI(
     openai_api_version="2024-02-15-preview"
 )
 
+# options to "stuff": "map_reduce" and "refine""
 chain = load_summarize_chain(llm, chain_type="stuff")
 
 results = chain.run(docs)
